@@ -51,6 +51,11 @@ I have a main class MailAlertSender which implements AlertSender interface where
 I have created a proxy MailAlertSenderProxy class which also implements AlertSender wherein the validation, roles etc are done within the proxy itself and
  privately it uses MailAlertSender object.
 
+> Usage of iBATIS over plain JDBC or Hibernate
+
+The database schema used is legacy and certain complex queries were required to be written in SQL
+Hibernate internally would load entire object graph
+The select statements are faster in iBatis than Hibernate.
 
 
 > Manage conflicts in a web application when different people are editing the same message data?
