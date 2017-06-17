@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+	<bean id="sqlSessionFactoryA" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSourceA" />
+		<property name="mapperLocations" value="classpath*:mapper/*.xml" />
+	</bean>
+
+	<bean id="notificationDao" class="example.test.dao.NotificationDaoImpl">
+		<property name="sqlSessionFactory" ref="sqlSessionFactoryA" />
+	</bean>
+
+	<bean id="relationDao" class="example.test.dao.RelationDaoImpl">
+		<property name="sqlSessionFactory" ref="sqlSessionFactoryA" />
+	</bean>
+
+</beans>

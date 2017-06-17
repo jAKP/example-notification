@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="example.test.service.RelationServiceImpl">
+
+	<resultMap id="RelationResult" type="example.test.dto.Relation">
+		<id property="relationId" column="r_id" />
+		<result property="city" column="city" />
+		<result property="country" column="country" />
+		<result property="firstName" column="first_name" />
+		<result property="lastName" column="last_name" />
+		<result property="poBox" column="po_box" />
+		<result property="street" column="street" />
+		<result property="zipCode" column="zip_code" />
+	</resultMap>
+
+
+	<select id="getRelationById" parameterType="long" resultMap="RelationResult">
+		SELECT a.r_id, a.city, a.country, a.first_name, a.last_name, a.po_box, a.street, a.zip+code 
+		FROM notifications a
+		WHERE a.r_id = #{relationId}
+	</select>
+
+</mapper>
