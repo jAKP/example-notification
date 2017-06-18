@@ -19,15 +19,15 @@ I have simply utilised it because I wanted to make my code more readable, mainta
 Data Acess Object (DAO) pattern
 
 I have used this to create an interface that provides access to an underlying database.
-I have an Alert entity corresponding to Alert table in database. I have created and AlertDao to handle all the database operations (findById, update, deleteById)
-and AlertDaoImpl for its the concrete implementation. I have used Hibernate/iBATIS ORM framework.
+I have an Notification entity corresponding to Notification table in database. I have created and NotificationDao to handle all the database operations (findById, update, deleteById)
+and NotificationDaoImpl for its the concrete implementation. I have used Hibernate/iBATIS ORM framework.
 
 Factory method pattern together with Decorator pattern
 
 Herein the superclass (interface or abstract class or normal java class) define the object but subclasses decide which class to instantiate.
 Subclasses are responsible to create the instance of the class. 
-The web application I worked on initialises, creates, enriches and sends alerts. I have an AlertFactory abstract class with createAlert which creates AlertMessage
-based on AlertType (email or sms).
+The web application I worked on initialises, creates, enriches and sends notifications. I have an NotificationFactory abstract class with createNotification which creates NotificationMessage
+based on NotificationType (email or sms).
 
 Singleton
 
@@ -44,20 +44,14 @@ is also possible for example in  certain algorithm performValidations and enrich
 
 Adapter pattern
 
-I have simply utilised the object adapter because I needed a translation mechanism of requests between two incompatible interfaces. To convert from one interface
-of a class to another that client required to make the incompatible objects interact.
-The web application is a middleware application where I had multiple front-end interfaces, interfaces for fetching market prices, customer information from CRM
-systems (and other interfaces). I used and Adapter class to convert from the com.frontend.MailAlert (implements com.frontend.Alert) to the com.backend.MailAlert
-(implements com.backend.Alert), as being middleware it is required to mimic like a com.backend.Alert type of object I created AlertAdapter class which does the
-translation.
+I have simply utilised the object adapter because I needed a translation mechanism of requests between two incompatible interfaces. To convert from one interface of a class to another that client required to make the incompatible objects interact.
+The web application is a middleware application where I had multiple front-end interfaces, interfaces for fetching market prices, customer information from CRM systems (and other interfaces). I used and Adapter class to convert from the com.frontend.MailNotification (implements com.frontend.Notification) to the com.backend.MailNotification (implements com.backend.Notification), as being middleware it is required to mimic like a com.backend.Notification type of object I created NotificationAdapter class which does the translation.
 
 Proxy pattern
 
 The proxy (simple) class represents functionality of another (complex) class and could be used to hide the real object.
-I have a main class MailAlertSender which implements AlertSender interface wherein the alert message needs to be first validated and sent to multiple focus groups
- depending on the Alert type and roles of Relation Managers in ABN bank.
-I have created a proxy MailAlertSenderProxy class which also implements AlertSender wherein the validation, roles etc are done within the proxy itself and
- privately it uses MailAlertSender object.
+I have a main class MailNotificationSender which implements NotificationSender interface wherein the notification message needs to be first validated and sent to multiple focus groups depending on the Notification type and roles of Relation Managers in ABN bank.
+I have created a proxy MailNotificationSenderProxy class which also implements NotificationSender wherein the validation, roles etc are done within the proxy itself and privately it uses MailNotificationSender object.
 
 > Usage of iBATIS over plain JDBC or Hibernate
 
@@ -65,12 +59,9 @@ The database schema used is legacy and certain complex queries were required to 
 Hibernate internally would load entire object graph
 The select statements are faster in iBatis than Hibernate.
 
-
 > Manage conflicts in a web application when different people are editing the same message data?
 
 Record is locked for changes and a admin user can unlock it OR use Version-based Optimistic concurrency method.
-I have implemented both of these in different applications wherein an application for maintaining static data and have used Hibernate ORM, the database table has
-a Version (Integer/Timestamp) column.
-A single record or a group update is done based on the last updated old value of version field and implemented with a good exceptional handling (message on
-screen) for user experience.
+I have implemented both of these in different applications wherein an application for maintaining static data and have used Hibernate ORM, the database table has a Version (Integer/Timestamp) column.
+A single record or a group update is done based on the last updated old value of version field and implemented with a good exceptional handling (message on screen) for user experience.
  
