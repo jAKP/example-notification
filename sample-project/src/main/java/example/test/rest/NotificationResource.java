@@ -13,7 +13,7 @@ import example.test.dto.Notification;
 
 @Component
 @Path("crm")
-public class CrmResource extends AbstractResource {
+public class NotificationResource extends AbstractResource {
 
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
