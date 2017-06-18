@@ -19,10 +19,10 @@
 		http://www.springframework.org/schema/task/spring-task-3.0.xsd
 		">
 
-	<context:component-scan base-package="example.test.dao.impl" />
-	<context:component-scan base-package="example.test.service.impl" />
+	<context:component-scan base-package="example.notification.dao.impl" />
+	<context:component-scan base-package="example.notification.service.impl" />
 
-	<bean id="applicationContextProvider" class="example.test..factory.ApplicationContextProvider" />
+	<bean id="applicationContextProvider" class="example.notification..factory.ApplicationContextProvider" />
 
 	<import resource="classpath:datasource.xml" />
 	<import resource="classpath:myBatis.xml" />
@@ -31,21 +31,21 @@
 	<tx:annotation-driven transaction-manager="transactionManager" />
 	<task:annotation-driven />
 
-	<bean id="notificationService" class="example.test.services.impl.NotificationServiceImpl">
+	<bean id="notificationService" class="example.notification.services.impl.NotificationServiceImpl">
 		<property name="notificationDao" ref="notificationDao" />
 	</bean>
 
-	<bean id="relationService" class="example.test.services.impl.RelationServiceImpl">
+	<bean id="relationService" class="example.notification.services.impl.RelationServiceImpl">
 		<property name="relationDao" ref="relationDao" />
 	</bean>
 
-	<bean id="daoServiceLoggerBean" class="example.test.dao.DaoServiceLogger"
+	<bean id="daoServiceLoggerBean" class="example.notification.dao.DaoServiceLogger"
 		scope="singleton" />
 
 	<aop:config>
 		<aop:aspect id="daoServiceAspect" ref="daoServiceLoggerBean">
 			<aop:pointcut id="daoServicePointcut"
-				expression="execution(* example.test.service.*Service.*(..))" />
+				expression="execution(* example.notification.service.*Service.*(..))" />
 			<aop:around pointcut-ref="daoServicePointcut" method="doLog" />
 		</aop:aspect>
 	</aop:config>

@@ -2,9 +2,9 @@
 <!DOCTYPE mapper
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="example.test.service.NotificationServiceImpl">
+<mapper namespace="example.notification.service.NotificationServiceImpl">
 
-	<resultMap id="NotificationResult" type="example.test.dto.Notification">
+	<resultMap id="NotificationResult" type="example.notification.dto.Notification">
 		<id property="notificationId" column="n_id" />
 		<result property="notificationType" column="n_type" />
 		<result property="notificationMessage" column="n_message" />
@@ -16,14 +16,14 @@
 		WHERE a.id = #{value}
 	</select>
 
-	<delete id="deleteNotification" parameterType="example.test.dto.Notification">
+	<delete id="deleteNotification" parameterType="example.notification.dto.Notification">
 		delete from notifications a where 1=1
 		<if test="notificationId > 0">
 			and a.n_id = #{notificationId , javaType=Long, jdbcType=NUMERIC}
 		</if>
 	</delete>
 
-	<insert id="insertNotification" parameterType="example.test.dto.Notification"
+	<insert id="insertNotification" parameterType="example.notification.dto.Notification"
 		useGeneratedKeys="true" keyProperty="nId">
 		<selectKey keyProperty="notificationId" resultType="LONG" order="BEFORE">
 			select seq_notifications.nextval from dual
@@ -37,7 +37,7 @@
 		)
 	</insert>
 
-	<update id="updateNotification" parameterType="example.test.dto.Notification">
+	<update id="updateNotification" parameterType="example.notification.dto.Notification">
 		UPDATE notifications a
 		SET 
 		<if test="notificationType != null">

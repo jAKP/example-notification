@@ -4,10 +4,10 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-import example.test.dto.Notification;
-import example.test.exception.ApplicationException;
-import example.test.service.NotificationService;
-import example.test.service.NotificationServiceImpl;
+import example.notification.dto.Notification;
+import example.notification.exception.ApplicationException;
+import example.notification.service.NotificationService;
+import example.notification.service.NotificationServiceImpl;
 
 public class NotificationResourceTest {
 	@Test

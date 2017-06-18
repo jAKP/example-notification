@@ -3,7 +3,8 @@ package example.test.dao;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import example.test.dto.Relation;
+import example.notification.dao.RelationDaoImpl;
+import example.notification.dto.Relation;
 import junit.framework.TestCase;
 
 public class RelationDaoTest extends TestCase {

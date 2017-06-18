@@ -8,11 +8,11 @@
 		<property name="mapperLocations" value="classpath*:mapper/*.xml" />
 	</bean>
 
-	<bean id="notificationDao" class="example.test.dao.NotificationDaoImpl">
+	<bean id="notificationDao" class="example.notification.dao.NotificationDaoImpl">
 		<property name="sqlSessionFactory" ref="sqlSessionFactoryA" />
 	</bean>
 
-	<bean id="relationDao" class="example.test.dao.RelationDaoImpl">
+	<bean id="relationDao" class="example.notification.dao.RelationDaoImpl">
 		<property name="sqlSessionFactory" ref="sqlSessionFactoryA" />
 	</bean>
 
