@@ -9,10 +9,9 @@ import org.apache.commons.lang.StringUtils;
 
 import example.test.properties.PropertyUtil;
 
-public class LockUtil {
+public class LockMessageUtil {
 	private static final DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm");
-	private static int lockIntervalInMinutes = PropertyUtil.getInstance().getApplication()
-			.getInt(PropertyUtil.Application.APPLICATION_MESSAGE_LOCK, 60);
+	private static int lockInterval = PropertyUtil.getInstance().getApplication().getInt(PropertyUtil.Application.APPLICATION_MESSAGE_LOCK, 60);
 
 	public static final String LOCK_STATUS_UNLOCKED = "unlocked";
 	public static final String LOCK_STATUS_LOCKED = "locked";
@@ -32,7 +31,7 @@ public class LockUtil {
 				return true;
 			} else {
 				Calendar cal = Calendar.getInstance();
-				cal.add(Calendar.MINUTE, lockIntervalInMinutes * -1);
+				cal.add(Calendar.MINUTE, lockInterval * -1);
 				return lockTimestamp.before(cal.getTime());
 			}
 		}
@@ -40,8 +39,8 @@ public class LockUtil {
 	}
 
 	public static String getLockStatus(Date lockTimestamp, String lockUsername, String loggedOnUser) {
-		if (LockUtil.isLocked(lockUsername)) {
-			if (LockUtil.isUnlockable(lockTimestamp, lockUsername, loggedOnUser)) {
+		if (LockMessageUtil.isLocked(lockUsername)) {
+			if (LockMessageUtil.isUnlockable(lockTimestamp, lockUsername, loggedOnUser)) {
 				return LOCK_STATUS_UNLOCKABLE;
 			} else {
 				return LOCK_STATUS_LOCKED;
@@ -51,7 +50,7 @@ public class LockUtil {
 	}
 
 	public static String getLockInfo(Date lockTimestamp, String lockUsername) {
-		if (LockUtil.isLocked(lockUsername)) {
+		if (LockMessageUtil.isLocked(lockUsername)) {
 			return "Locked by " + lockUsername + " on " + dateFormat.format(lockTimestamp);
 		}
 		return "";
