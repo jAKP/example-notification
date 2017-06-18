@@ -1,4 +1,4 @@
-package example.test.dao;
+package example.notification.dao;
 
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;

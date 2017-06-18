@@ -1,4 +1,4 @@
-package example.test.service;
+package example.notification.service;
 
 import junit.framework.TestCase;
 

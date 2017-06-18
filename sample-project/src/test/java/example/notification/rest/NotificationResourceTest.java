@@ -1,4 +1,4 @@
-package example.test.rest;
+package example.notification.rest;
 
 import static org.junit.Assert.assertEquals;
 
