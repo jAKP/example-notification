@@ -4,3 +4,6 @@
 | @Repository| stereotype for persistence layer                    |
 | @Service   | stereotype for service layer                        |
 | @Controller| stereotype for presentation layer (spring-mvc)      |
+
+Spring 4.3
+Use @GetMapping, @PostMapping, @PutMapping and @DeleteMapping instead of standard @RequestMapping.
