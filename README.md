@@ -65,3 +65,7 @@ Record is locked for changes and a admin user can unlock it OR use Version-based
 I have implemented both of these in different applications wherein an application for maintaining static data and have used Hibernate ORM, the database table has a Version (Integer/Timestamp) column.
 A single record or a group update is done based on the last updated old value of version field and implemented with a good exceptional handling (message on screen) for user experience.
  
+ > Using REST
+ 
+System components remain properly decoupled by creating an API
+Discovery is far easier in REST (using tools like swagger can expose to world)
