@@ -69,3 +69,11 @@ A single record or a group update is done based on the last updated old value of
  
 System components remain properly decoupled by creating an API
 Discovery is far easier in REST (using tools like swagger can expose to world)
+
+//TODO
+> Spring Boots
+
+Spring Boot offers a fast way to build applications. It looks at your classpath and at beans you have configured, makes reasonable assumptions about what you’re missing, and adds it. With Spring Boot you can focus more on business features and less on infrastructure.
+
+At start up of your application, Spring Boot dynamically wires up beans and settings and applies them to your application context.
+
