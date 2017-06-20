@@ -22,7 +22,7 @@
 	<context:component-scan base-package="example.notification.dao.impl" />
 	<context:component-scan base-package="example.notification.service.impl" />
 
-	<bean id="applicationContextProvider" class="example.notification..factory.ApplicationContextProvider" />
+	<bean id="applicationContextProvider" class="example.notification.factory.ApplicationContextProvider" />
 
 	<import resource="classpath:datasource.xml" />
 	<import resource="classpath:myBatis.xml" />
@@ -44,8 +44,7 @@
 
 	<aop:config>
 		<aop:aspect id="daoServiceAspect" ref="daoServiceLoggerBean">
-			<aop:pointcut id="daoServicePointcut"
-				expression="execution(* example.notification.service.*Service.*(..))" />
+			<aop:pointcut id="daoServicePointcut" expression="execution(* example.notification.dao.*Dao.*(..))" />
 			<aop:around pointcut-ref="daoServicePointcut" method="doLog" />
 		</aop:aspect>
 	</aop:config>
