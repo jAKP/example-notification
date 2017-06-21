@@ -1,5 +1,26 @@
 # example-notification
 
+> Solutions:
+
+Situation
+I had a situation where different people are editing the same notification data using the web application.
+
+Due to this the message being compiled updated was lost or overwritten.
+I considered structural ways to solve this, either 
+1. Use Observer design pattern where the update event may trigger and notifies/displays all the users that the record is locked for changes
+2. Version-based Optimistic concurrency method: A single record or a group update is done based on the last updated old value of version field
+3. One user at a time: Only one user can edit the message at a time. 
+
+I have chosen option 3, because option 1 would make the solution complex and notifying users are not required and with option 2 users can still overwrite notification message.
+
+I created 2 additional columns in database table of notifications table for storing user who locked the message and the timestamp when its locked.
+I created additional services to fetch lock info, lock and unlock message. A LockNotificationUtil class to execute the shared functions.
+Features implemented:
+1. When the message is open first the user locks the message for further use and would be available readonly to others. On screen, a lock icon on message provides user who locked and when.
+2. When the message is saved and , message is unlocked.
+3. In case of inactivity of message for 60 mins, the message gets unlocked automatically.
+
+
 > Used Design Patterns
 
 Chain of Responsibility pattern
