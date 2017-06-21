@@ -37,4 +37,19 @@ public class NotificationDaoImpl extends AbstractDao implements NotificationDao 
 		delete("deleteNotification", notification);
 	}
 
+	@Override
+	public Notification getNotificationMessageLockInfo(long notificationId) {
+		return (Notification) selectOne("getNotificationMessageLockInfo", notificationId);
+	}
+
+	@Override
+	public int lockNotificationMessage(Notification notification) {
+		return update("lockNotificationMessage", notification);
+	}
+
+	@Override
+	public int unlockNotificationMessage(long notificationId) {
+		return update("unlockNotificationMessage", notificationId);
+	}
+
 }

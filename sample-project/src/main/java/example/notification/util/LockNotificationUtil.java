@@ -9,7 +9,7 @@ import org.apache.commons.lang.StringUtils;
 
 import example.notification.properties.PropertyUtil;
 
-public class LockMessageUtil {
+public class LockNotificationUtil {
 	private static final DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm");
 	private static int lockInterval = PropertyUtil.getInstance().getApplication().getInt(PropertyUtil.Application.APPLICATION_MESSAGE_LOCK, 60);
 
@@ -39,8 +39,8 @@ public class LockMessageUtil {
 	}
 
 	public static String getLockStatus(Date lockTimestamp, String lockUsername, String loggedOnUser) {
-		if (LockMessageUtil.isLocked(lockUsername)) {
-			if (LockMessageUtil.isUnlockable(lockTimestamp, lockUsername, loggedOnUser)) {
+		if (LockNotificationUtil.isLocked(lockUsername)) {
+			if (LockNotificationUtil.isUnlockable(lockTimestamp, lockUsername, loggedOnUser)) {
 				return LOCK_STATUS_UNLOCKABLE;
 			} else {
 				return LOCK_STATUS_LOCKED;
@@ -50,7 +50,7 @@ public class LockMessageUtil {
 	}
 
 	public static String getLockInfo(Date lockTimestamp, String lockUsername) {
-		if (LockMessageUtil.isLocked(lockUsername)) {
+		if (LockNotificationUtil.isLocked(lockUsername)) {
 			return "Locked by " + lockUsername + " on " + dateFormat.format(lockTimestamp);
 		}
 		return "";

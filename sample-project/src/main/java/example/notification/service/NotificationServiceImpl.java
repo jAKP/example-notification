@@ -10,6 +10,8 @@ import example.notification.dao.NotificationDaoImpl;
 import example.notification.dto.Notification;
 import example.notification.exception.AeExceptionUtil;
 import example.notification.exception.ApplicationException;
+import example.notification.exception.MessageLockedException;
+import example.notification.util.LockNotificationUtil;
 
 /**
  * Class NotificationServiceImpl
@@ -50,7 +52,7 @@ public class NotificationServiceImpl implements NotificationService {
 		}
 		return notification;
 	}
-	
+
 	@Override
 	public List<Notification> listNotifications(long id) throws ApplicationException {
 		List<Notification> notifications = null;
@@ -69,7 +71,68 @@ public class NotificationServiceImpl implements NotificationService {
 		} catch (Exception e) {
 			AeExceptionUtil.throwPersistencyException(e, "updateNotification", log);
 		}
+	}
 
+	/**
+	 * Get the notification mesasge lock info for a given id
+	 * 
+	 * @param notification
+	 *            the Notification dto
+	 * @return notification
+	 * @throws MessageLockedException
+	 */
+	public Notification getNotificationMessageLockInfo(Notification notification) throws MessageLockedException {
+		notification = getNotificationDao().getNotificationMessageLockInfo(notification.getNotficationId());
+		if (notification == null) {
+			throw new MessageLockedException("Notification does not exists");
+		}
+
+		return notification;
+	}
+
+	/**
+	 * Locks the notification for a given id
+	 * 
+	 * @param notification
+	 *            the Notification dto
+	 * @return notification
+	 * @throws MessageLockedException
+	 */
+	public Notification lockNotificationMessage(Notification notification) throws MessageLockedException {
+		Notification notificationOrig = (Notification) getNotificationMessageLockInfo(notification);
+		if (LockNotificationUtil.isLocked(notificationOrig.getNotificationLockUser()) && !LockNotificationUtil
+				.isLockOwned(notification.getNotificationLockUser(), notificationOrig.getNotificationLockUser())) {
+			throw new MessageLockedException(
+					"Notification message is Locked by user: " + notificationOrig.getNotificationLockUser());
+		} else {
+			notificationOrig.setNotificationLockUser(notification.getNotificationLockUser());
+			notificationOrig.updateLockTimestamp();
+			getNotificationDao().lockNotificationMessage(notification);
+		}
+
+		return notification;
+	}
+
+	/**
+	 * Unlocks the notification for a given id
+	 * 
+	 * @param notification
+	 *            the Notification dto
+	 * @return notification
+	 * @throws MessageLockedException
+	 */
+	public Notification unlockNotificationMessage(Notification notification) throws MessageLockedException {
+		Notification notificationOrig = null;
+		notificationOrig = (Notification) getNotificationMessageLockInfo(notification);
+		if (LockNotificationUtil.isLocked(notification.getNotificationLockUser())) {
+			if (!LockNotificationUtil.isUnlockable(notification.getNotificationLockTimestamp(),
+					notification.getNotificationLockUser(), notification.getNotificationLockUser())) {
+				throw new MessageLockedException(
+						"Notification message is Locked by user: " + notificationOrig.getNotificationLockUser());
+			}
+			getNotificationDao().unlockNotificationMessage(notification.getNotficationId());
+		}
+		return notification;
 	}
 
 	public NotificationDaoImpl getNotificationDao() {

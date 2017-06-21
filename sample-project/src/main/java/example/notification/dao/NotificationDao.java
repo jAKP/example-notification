@@ -16,4 +16,10 @@ public interface NotificationDao {
 
 	List<Notification> listNotifications(long id) throws Exception;
 
+	Notification getNotificationMessageLockInfo(long notificationId);
+
+	int lockNotificationMessage(Notification notification);
+
+	int unlockNotificationMessage(long notificationId);
+
 }
