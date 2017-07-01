@@ -11,7 +11,7 @@ I considered structural ways to solve this, either
 2. Version-based Optimistic concurrency method: A single record or a group update is done based on the last updated old value of version field
 3. One user at a time: Only one user can edit the message at a time. 
 
-I have chosen option 3, because option 1 would make the solution complex and notifying users are not required and with option 2 users can still overwrite notification message.
+I have chosen option 3, because option 1 would make the solution complex and use case of notifying users is not required and with option 2 users can still overwrite notification message.
 
 I created 2 additional columns in database table of notifications table for storing user who locked the message and the timestamp when its locked.
 I created additional services to fetch lock info, lock and unlock message. A LockNotificationUtil class to execute the shared functions.
