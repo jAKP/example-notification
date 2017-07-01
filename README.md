@@ -7,9 +7,9 @@ I had a situation where different people are editing the same notification data 
 
 Due to this the message being compiled or updated was lost or overwritten.
 I considered structural ways to solve this, either 
-1. Use Observer design pattern where the update event may trigger and notifies/displays all the users that the record is locked for changes
-2. Version-based Optimistic concurrency method: A single record or a group update is done based on the last updated old value of version field
-3. One user at a time: Only one user can edit the message at a time. 
+1. Use Observer design pattern where the update event triggers and notifies (or displays) to the users that the record is locked for changes
+2. Version-based Optimistic concurrency method: A single record or a group update is done based on the last updated old value of 'Version' field
+3. One user at a time: Only one user can edit the message at a time and message being readonly for others.
 
 I have chosen option 3, because option 1 would make the solution complex and use case of notifying users is not required and with option 2 users can still overwrite notification message.
 
