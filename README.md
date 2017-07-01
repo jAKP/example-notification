@@ -5,7 +5,7 @@
 Situation
 I had a situation where different people are editing the same notification data using the web application.
 
-Due to this the message being compiled updated was lost or overwritten.
+Due to this the message being compiled or updated was lost or overwritten.
 I considered structural ways to solve this, either 
 1. Use Observer design pattern where the update event may trigger and notifies/displays all the users that the record is locked for changes
 2. Version-based Optimistic concurrency method: A single record or a group update is done based on the last updated old value of version field
